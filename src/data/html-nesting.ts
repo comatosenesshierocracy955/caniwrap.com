@@ -155,6 +155,16 @@ export const elements: Record<string, ElementDef> = {
   noscript: { cats: MFP, content: 'flow', desc: 'No-script fallback' },
   template: { cats: MFP, content: 'flow', desc: 'Content template' },
 
+  // ── Document structure ──
+  html: { cats: NONE, content: 'specific', children: ['head', 'body'], desc: 'Document root element' },
+  head: { cats: NONE, content: 'specific', children: ['title', 'meta', 'link', 'style', 'script', 'noscript', 'template', 'base'], desc: 'Document metadata container' },
+  body: { cats: NONE, content: 'flow', desc: 'Document body' },
+  title: { cats: NONE, content: 'text', desc: 'Document title' },
+  base:  { cats: NONE, content: 'void', desc: 'Base URL for relative URLs' },
+  link:  { cats: NONE, content: 'void', desc: 'External resource link' },
+  meta:  { cats: NONE, content: 'void', desc: 'Document metadata' },
+  style: { cats: NONE, content: 'text', desc: 'Embedded CSS styles' },
+
   // ── Other ──
   map:  { cats: FP, content: 'transparent', desc: 'Image map' },
   area: { cats: FP, content: 'void', desc: 'Image map region' },
@@ -200,6 +210,8 @@ const displayTypes: Record<string, DisplayType> = {
   td: 'table', th: 'table',
 
   script: 'none', template: 'none', source: 'none', track: 'none',
+  html: 'block', head: 'none', body: 'block', title: 'none',
+  base: 'none', link: 'none', meta: 'none', style: 'none',
 
   li: 'list-item',
 };
@@ -545,6 +557,8 @@ function getTypicalParent(tag: string): string {
     legend: 'fieldset', figcaption: 'figure', summary: 'details',
     source: 'video, audio, picture', track: 'video, audio',
     rt: 'ruby', rp: 'ruby',
+    head: 'html', body: 'html', title: 'head', base: 'head',
+    link: 'head', meta: 'head', style: 'head',
   };
   return map[tag] ?? '...';
 }
@@ -582,15 +596,33 @@ export const EASTER_EGGS: Record<string, string> = {
   'li,div':          '🎉 Plot twist: &lt;li&gt; can actually contain almost anything. It\'s surprisingly permissive!',
   'header,header':   '🤕 Two headers? Even your website gets a headache from this.',
   'footer,footer':   '👟 Footers inside footers — it\'s turtles all the way down.',
-  'form,form':       '🚫 The browser literally ignores the inner form. It\'s like it doesn\'t exist.',
+  'html,div':        '🌍 Putting &lt;html&gt; inside a &lt;div&gt;? That\'s like putting the ocean in a fish tank.',
+  'html,html':       '🪆 HTML inception! The spec does not allow going deeper.',
+  'body,head':       '🙃 &lt;body&gt; inside &lt;head&gt;? That\'s literally backwards.',
+  'head,body':       '🧠 &lt;head&gt; inside &lt;body&gt;? The brain belongs at the top.',
+  'div,head':        '🤯 &lt;div&gt; inside &lt;head&gt;? The &lt;head&gt; is for metadata only!',
+  'style,style':     '🎨 Styles inside styles? Very meta, but not valid.',
+  'body,body':       '💀 Two bodies? Even Frankenstein says no.',
+  'head,head':       '🤕 Two &lt;head&gt;s? Even Zaphod Beeblebrox would call that excessive.',
 };
 
-// ── Well-known tricky combinations ──
+// Tricky = the answer genuinely surprises most developers
 export const TRICKY_COMBOS = new Set([
-  'div,p', 'div,span', 'p,p', 'a,button', 'button,a', 'a,a',
-  'button,button', 'ul,p', 'ol,p', 'h1,p', 'h2,p', 'table,p',
-  'form,form', 'header,header', 'footer,footer', 'main,main',
-  'div,a', 'label,label', 'section,p', 'img,button',
+  'div,p',       // NO — devs put divs inside p all the time without realizing it breaks
+  'p,p',         // NO — auto-closing behavior is invisible and catches everyone
+  'div,span',    // NO — extremely common mistake in JSX/templates
+  'ul,p',        // NO — looks reasonable, but p auto-closes before the list
+  'h1,p',        // NO — headings inside paragraphs? p auto-closes
+  'table,p',     // NO — same auto-close trap
+  'section,p',   // NO — sectioning content breaks out of p
+  'img,button',  // YES — most devs think buttons only accept text
+  'div,a',       // DEPENDS — transparent model is deeply confusing
+  'ul,a',        // DEPENDS — almost nobody knows <a> can wrap block content
+  'video,p',     // YES — video is phrasing content, which surprises people
+  'svg,div',     // NO — svg has its own content model, not flow
+  'li,div',      // NO — li only goes inside ul/ol/menu, not any flow container
+  'td,div',      // NO — td only goes inside tr, even though both accept flow
+  'main,main',   // NO — only one main allowed, even nested in different sections
 ]);
 
 // ── DOM correction visualization ──
