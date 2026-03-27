@@ -276,20 +276,32 @@ function buildElementCard(tag: string, role: 'child' | 'parent') {
   `;
 }
 
-function buildDomDiff(child: string, parent: string): string {
+function buildBrowserSection(child: string, parent: string, browserNote?: string): string {
   const correction = getDomCorrection(child, parent);
-  if (!correction) return '';
+  if (!correction && !browserNote) return '';
+
+  const diffHtml = correction ? `
+    <div class="browser-parsing-diff">
+      <div class="browser-parsing-panel">
+        <div class="browser-parsing-label">Your code</div>
+        <pre class="browser-parsing-code"><code>${highlightHtml(correction.wrote)}</code></pre>
+      </div>
+      <div class="browser-parsing-arrow">→</div>
+      <div class="browser-parsing-panel">
+        <div class="browser-parsing-label">Resulting DOM</div>
+        <pre class="browser-parsing-code"><code>${highlightHtml(correction.sees)}</code></pre>
+      </div>
+    </div>
+  ` : '';
+
   return `
-    <div class="dom-diff">
-      <div class="dom-diff-panel">
-        <div class="dom-diff-label">What you wrote</div>
-        <pre class="dom-diff-code"><code>${highlightHtml(correction.wrote)}</code></pre>
+    <div class="browser-parsing">
+      <div class="browser-parsing-header">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+        How the browser handles this
       </div>
-      <div class="dom-diff-arrow">→</div>
-      <div class="dom-diff-panel">
-        <div class="dom-diff-label">What the browser sees</div>
-        <pre class="dom-diff-code"><code>${highlightHtml(correction.sees)}</code></pre>
-      </div>
+      ${browserNote ? `<p class="browser-parsing-note">${browserNote}</p>` : ''}
+      ${diffHtml}
     </div>
   `;
 }
@@ -318,7 +330,7 @@ function displayResult(result: NestingResult, child: string, parent: string) {
   const comboKey = `${child},${parent}`;
   const easterEgg = EASTER_EGGS[comboKey];
   const isTricky = TRICKY_COMBOS.has(comboKey);
-  const domDiff = result.valid === 'no' ? buildDomDiff(child, parent) : '';
+  const browserSection = buildBrowserSection(child, parent, result.browserNote);
 
   const trickyHtml = isTricky
     ? `<span class="tricky-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 9l.01 0" /><path d="M15 9l.01 0" /><path d="M10 15a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /></svg> Tricky!</span>`
@@ -335,8 +347,7 @@ function displayResult(result: NestingResult, child: string, parent: string) {
         ${buildElementCard(child, 'child')}
       </div>
 
-      ${domDiff}
-      ${result.browserNote ? `<div class="browser-note"><strong>Browser behavior:</strong> ${result.browserNote}</div>` : ''}
+      ${browserSection}
       ${
         result.codeExample
           ? `<div class="code-block">

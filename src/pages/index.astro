@@ -678,34 +678,65 @@ function groupByDisplay(tags: string[]) {
     flex-shrink: 0;
   }
 
-  /* ── DOM diff ── */
-  :global(.dom-diff) {
+  /* ── Browser parsing section ── */
+  :global(.browser-parsing) {
+    border: 1px solid #e7e5e4;
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    background: #fafaf9;
+  }
+
+  :global(.browser-parsing-header) {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #57534e;
+    margin-bottom: 0.5rem;
+  }
+
+  :global(.browser-parsing-header svg) {
+    color: #a8a29e;
+    flex-shrink: 0;
+  }
+
+  :global(.browser-parsing-note) {
+    font-size: 0.8125rem;
+    color: #78716c;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  :global(.browser-parsing-note code) {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    background: #e7e5e4;
+    padding: 0.1em 0.35em;
+    border-radius: 0.25rem;
+    color: #44403c;
+  }
+
+  :global(.browser-parsing-diff) {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     gap: 0.5rem;
     align-items: center;
-    margin-bottom: 1.25rem;
+    margin-top: 0.75rem;
   }
 
-  @media (max-width: 480px) {
-    :global(.dom-diff) {
-      grid-template-columns: 1fr;
-    }
-    :global(.dom-diff-arrow) {
-      transform: rotate(90deg);
-      justify-self: center;
-    }
-  }
-
-  :global(.dom-diff-panel) {
+  :global(.browser-parsing-panel) {
     overflow: hidden;
-    border-radius: 0.625rem;
+    border-radius: 0.5rem;
   }
 
-  :global(.dom-diff-label) {
+  :global(.browser-parsing-label) {
     background: #292524;
-    padding: 0.35rem 0.75rem;
-    font-size: 0.625rem;
+    padding: 0.3rem 0.65rem;
+    font-size: 0.5625rem;
     font-weight: 600;
     color: #78716c;
     text-transform: uppercase;
@@ -713,22 +744,32 @@ function groupByDisplay(tags: string[]) {
     font-family: var(--font-mono);
   }
 
-  :global(.dom-diff-code) {
+  :global(.browser-parsing-code) {
     background: #1c1917;
-    padding: 0.625rem 0.75rem;
+    padding: 0.5rem 0.65rem;
     margin: 0;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     line-height: 1.6;
     color: #a8a29e;
   }
 
-  :global(.dom-diff-arrow) {
+  :global(.browser-parsing-arrow) {
     color: #a8a29e;
     font-size: 1.25rem;
     font-weight: 300;
     text-align: center;
     flex-shrink: 0;
+  }
+
+  @media (max-width: 480px) {
+    :global(.browser-parsing-diff) {
+      grid-template-columns: 1fr;
+    }
+    :global(.browser-parsing-arrow) {
+      transform: rotate(90deg);
+      justify-self: center;
+    }
   }
 
   /* ── Share TIL button ── */
