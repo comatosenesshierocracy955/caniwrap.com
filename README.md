@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="public/og-image.png" alt="Can I Wrap?" />
-
 # Can I Wrap?
 
 **Check if you can nest one HTML element inside another according to the HTML specification.**
