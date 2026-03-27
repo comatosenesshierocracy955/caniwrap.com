@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    @media (prefers-color-scheme: dark) {
+      .bracket { stroke: #78716c; }
+      .q-stroke { stroke: #fafaf9; }
+      .q-dot { fill: #fafaf9; }
+    }
+    @media (prefers-color-scheme: light) {
+      .bracket { stroke: #a8a29e; }
+      .q-stroke { stroke: #1c1917; }
+      .q-dot { fill: #1c1917; }
+    }
+  </style>
+  <!-- Outer brackets -->
+  <path class="bracket" d="M9 6.5 L3 16 L9 25.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path class="bracket" d="M23 6.5 L29 16 L23 25.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Question mark -->
+  <path class="q-stroke" d="M13.5 11.5 Q13.5 8.5 16 8.5 Q18.5 8.5 18.5 11 Q18.5 13 16 14.5 L16 17" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle class="q-dot" cx="16" cy="21" r="1.5"/>
+</svg>
